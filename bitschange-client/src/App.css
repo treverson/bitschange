@@ -12,11 +12,12 @@
 
 .login-page {
   height: 100vh;
-  padding-top: 30vh;
+  padding-top: 20vh;
 }
 
 .login-box {
   width: 30%;
+  min-width: 200px;
   margin: auto;
   padding: 3em;
   border-radius: 1em;
