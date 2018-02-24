@@ -1,0 +1,26 @@
+{
+  "name": "bitschange",
+  "version": "1.0.0",
+  "description": "A pretend cryptocurrency exchange.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dukeblue2017/bitschange.git"
+  },
+  "keywords": [
+    "cryptocurrency",
+    "exchange"
+  ],
+  "author": "Carter Duncan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dukeblue2017/bitschange/issues"
+  },
+  "homepage": "https://github.com/dukeblue2017/bitschange#readme",
+  "dependencies": {
+    "nodemon": "^1.15.1"
+  }
+}
