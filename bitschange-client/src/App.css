@@ -16,17 +16,26 @@
 }
 
 .login-box {
-  width: 20%;
+  width: 30%;
   margin: auto;
-  padding: 40px;
-  border-radius: 4px;
+  padding: 3em;
+  border-radius: 1em;
   background-color: lightblue;
 }
 
-.login-box > div {
-  padding: 10px;
+form {
+  font-size: 1.3em;
+  color: darkblue;
+  text-align: center;
 }
 
-input {
-  float: right;
+form > label {
+  padding: 1.5em;
+  display: block;
+}
+
+label > input {
+  margin-top: 1em;
+  padding: .6em;
+  width: 100%;
 }
