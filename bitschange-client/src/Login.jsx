@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -26,7 +27,14 @@ class LoginPage extends Component {
   }
 
   handleSubmit(event) {
-    console.log('submitted', this.state)
+    console.log('submitted', this.state);
+    axios({
+      method: 'post',
+      url: 'http://localhost:5000/login',
+      data: this.state,
+    })
+      .then('success')
+      .catch('fail');
     event.preventDefault();
   }
 
