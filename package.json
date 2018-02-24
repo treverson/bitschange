@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/dukeblue2017/bitschange#readme",
   "dependencies": {
+    "express": "^4.16.2",
     "nodemon": "^1.15.1"
   }
 }
