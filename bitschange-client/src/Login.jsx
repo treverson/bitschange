@@ -27,13 +27,23 @@ class LoginPage extends Component {
   }
 
   handleSubmit(event) {
-    console.log('submitted', this.state);
     axios({
       method: 'post',
       url: 'http://localhost:5000/login',
-      data: this.state,
+      data: {
+        username: this.state.username,
+        password: this.state.password,
+      },
     })
-      .then(res => console.log(res))
+      .then( (res) => {
+        if (res.data.token) {
+          axios.defaults.headers.common.Authorization = res.data.token;
+          alert('Correct! You have logged in');
+          this.props.handleLogin();
+        } else {
+          alert('Incorrect login credentials. Please try again.');
+        }
+      })
       .catch(err => console.log(err));
     event.preventDefault();
   }

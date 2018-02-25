@@ -17,6 +17,12 @@ const db = {};
 
 // db.setHash = (username, hash) => knex('users').update({ PassHash: hash }).where({ username });
 
-db.fetchHash = username => knex('users').select('PassHash').where({ username });
+db.fetchHash = (username) => {
+  return knex('users').select('PassHash').where({ username });
+};
+
+db.fetchBalances = (username) => {
+  knex('users').select('username, USDBalance').where({ username });
+};
 
 module.exports = db;

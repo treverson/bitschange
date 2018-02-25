@@ -4,6 +4,10 @@ const db = require('./db/index.js');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv').config({
+  path: 'env.env',
+});
 
 const port = 5000;
 const app = express();
@@ -28,8 +32,44 @@ app.post('/login', (req, res) => {
     .then(dbRes => bcrypt.compare(reqPassword, dbRes[0].PassHash))
     .then((doesMatch) => {
       if (doesMatch) {
-        res.send('youre in!');
+        const token = jwt.sign(reqUsername, process.env.JWT_SECRET);
+        res.json({ token });
+      }
+      else {
+        res.end();
       }
     })
     .catch(err => res.send(err));
+});
+
+// this middleware needs to come after the post to /login route
+app.use((req, res, next) => {
+  const token = req.headers.authorization;
+  if (token) {
+    jwt.verify(token, process.env.JWT_SECRET, (err, decode) => {
+      if (err) {
+        console.log('err 1');
+        res.status(403).json({
+          message: 'Invalid Token',
+        });
+      } else {
+        req.decoded = decode;
+        console.log('JWT is good');
+        next();
+      }
+    });
+  } else {
+    console.log('err 2');
+    res.status(403).json({
+      message: 'No Token Provided',
+    });
+  }
+});
+
+app.get('/test', (req, res) => {
+  console.log('req.token:', req.token);
+});
+
+app.get('/balances', (req, res) => {
+  console.log('get received to /balances');
 });
