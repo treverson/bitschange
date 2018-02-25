@@ -19,6 +19,6 @@ const db = {};
 
 db.fetchHash = username => knex('users').select('PassHash').where({ username });
 
-db.fetchBalances = username => knex('users').select(['USDBalance', 'BTCBalance']).where({ username });
+db.fetchBalances = username => knex('users').select(['USDBalance', 'BTCBalance', 'LTCBalance', 'DOGEBalance', 'XMRBalance']).where({ username });
 
 module.exports = db;
