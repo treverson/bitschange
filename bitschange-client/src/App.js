@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import MainPage from './MainPage';
 import LoginPage from './Login';
 import './App.css';
-import axios from 'axios';
 
 class App extends Component {
   constructor(props) {
@@ -15,13 +14,13 @@ class App extends Component {
   }
 
   handleLogin() {
-    this.setState({isLoggedIn: true});
+    this.setState({ isLoggedIn: true });
   }
 
   render() {
     return (
       <div className="App">
-        {this.state.isLoggedIn ? <MainPage /> : <LoginPage handleLogin={this.handleLogin}/> }
+        {this.state.isLoggedIn ? <MainPage /> : <LoginPage handleLogin={this.handleLogin} /> }
       </div>
     );
   }

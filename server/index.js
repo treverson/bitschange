@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const express = require('express');
 const path = require('path');
 const db = require('./db/index.js');
@@ -5,7 +6,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv').config({
+const dotenv = require('dotenv').config({ // eslint-disable-line
   path: 'env.env',
 });
 
@@ -34,8 +35,7 @@ app.post('/login', (req, res) => {
       if (doesMatch) {
         const token = jwt.sign(reqUsername, process.env.JWT_SECRET);
         res.json({ token });
-      }
-      else {
+      } else {
         res.end();
       }
     })
@@ -48,18 +48,18 @@ app.use((req, res, next) => {
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, (err, decode) => {
       if (err) {
-        console.log('err 1');
+        // console.log('err 1');
         res.status(403).json({
           message: 'Invalid Token',
         });
       } else {
         req.decoded = decode;
-        console.log('JWT is good');
+        // console.log('JWT is good');
         next();
       }
     });
   } else {
-    console.log('err 2');
+    // console.log('err 2');
     res.status(403).json({
       message: 'No Token Provided',
     });
@@ -67,9 +67,20 @@ app.use((req, res, next) => {
 });
 
 app.get('/test', (req, res) => {
-  console.log('req.token:', req.token);
+  console.log('req.headers.authorization:', req.headers.authorization);
+  res.end();
 });
 
 app.get('/balances', (req, res) => {
-  console.log('get received to /balances');
+  const token = req.headers.authorization;
+  jwt.verify(token, process.env.JWT_SECRET, (err, decode) => {
+    if (err) {
+      res.send(err);
+    } else {
+      const username = decode;
+      db.fetchBalances(username)
+        .then(dbRes => res.send(dbRes))
+        .catch(dbErr => res.send(dbErr));
+    }
+  });
 });
