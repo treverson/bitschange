@@ -13,8 +13,10 @@ const knex = require('knex')({
   },
 });
 
-knex('users').then(res => console.log('knex res', res)).catch(err => console.log('knex err:', err));
-
 const db = {};
+
+// db.setHash = (username, hash) => knex('users').update({ PassHash: hash }).where({ username });
+
+db.fetchHash = username => knex('users').select('PassHash').where({ username });
 
 module.exports = db;

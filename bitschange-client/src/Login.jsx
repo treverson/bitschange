@@ -33,8 +33,8 @@ class LoginPage extends Component {
       url: 'http://localhost:5000/login',
       data: this.state,
     })
-      .then('success')
-      .catch('fail');
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
     event.preventDefault();
   }
 
